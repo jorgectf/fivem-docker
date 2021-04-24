@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+  fivem:
+    build: fxserver/.
+    env_file:
+      - .env
+
+    stdin_open: true
+    tty: true
+    restart: always
+
+    working_dir: /srv
+    command: "./run.sh +exec server.cfg +steam_webApiKey ${steamKey} +sv_licenseKey ${licenseKey}"
+
+    volumes:
+      - ./fxserver/server.cfg:/srv/server.cfg
+      - ./fxserver/resources:/srv/resources
+      - ./fxserver/cache:/srv/cache
+    ports:
+      - "30120:30120/tcp"
+      - "30120:30120/udp"
